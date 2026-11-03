@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-IDS // Threat Intelligence Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+</head>
+<body>
+<div class="scanline"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="sidebar-logo">
+        <i class="fa-solid fa-circle-nodes"></i>
+        <span>Sentinel<span class="accent">AI</span></span>
+    </div>
+    <nav class="sidebar-nav">
+        <a href="#overview"  class="nav-item active"><i class="fa-solid fa-chart-pie"></i><span>Overview</span></a>
+        <a href="#intel"     class="nav-item"><i class="fa-solid fa-crosshairs"></i><span>Intelligence</span></a>
+        <a href="#risk"      class="nav-item"><i class="fa-solid fa-ranking-star"></i><span>Risk Scores</span></a>
+        <a href="#analytics" class="nav-item"><i class="fa-solid fa-chart-line"></i><span>Analytics</span></a>
+        <a href="#heatmap"   class="nav-item"><i class="fa-solid fa-fire"></i><span>Attack Heatmap</span></a>
+        <a href="#topology"  class="nav-item"><i class="fa-solid fa-diagram-project"></i><span>Topology</span></a>
+        <a href="#ports"     class="nav-item"><i class="fa-solid fa-plug"></i><span>Port Analysis</span></a>
+        <a href="#threats"   class="nav-item"><i class="fa-solid fa-triangle-exclamation"></i><span>Threats</span></a>
+        <a href="#map"       class="nav-item"><i class="fa-solid fa-earth-asia"></i><span>Geo Map</span></a>
+        <a href="#stream"    class="nav-item"><i class="fa-solid fa-satellite-dish"></i><span>Live Stream</span></a>
+        <a href="/admin" class="nav-item" style="margin-top:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px;">
+            <i class="fa-solid fa-user-shield"></i><span>Admin Panel</span>
+        </a>
+    </nav>
+    <a href="#chat" class="nav-item"><i class="fa-solid fa-comments"></i><span>AI Chat</span></a>
+    <div class="sidebar-footer">
+        <a href="/download/report" class="export-btn pdf-btn">
+            <i class="fa-solid fa-file-pdf"></i><span>Download Report</span>
+        </a>
+        <a href="/download/alerts" class="export-btn">
+            <i class="fa-solid fa-download"></i><span>Export Alerts CSV</span>
+        </a>
+        <button class="export-btn email-settings-btn" onclick="openEmailSettings()">
+            <i class="fa-solid fa-envelope-circle-check"></i><span>Alert Email</span>
+        </button>
+        <div class="sys-status">
+            <div class="status-dot"></div><span>SYSTEM ACTIVE</span>
+        </div>
+    </div>
+    </div>
+</div>
+
+<main class="main">
+    <!-- AI PREDICTION BANNER -->
+<div class="prediction-banner" id="prediction-banner" style="display:none;">
+    <div class="pred-left">
+        <div class="pred-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>
+            <div class="pred-title">
+                AI Threat Prediction
+                <span class="pred-prob" id="pred-prob"></span>
+            </div>
+            <div class="pred-text" id="pred-text"></div>
+        </div>
+    </div>
+    <div class="pred-right">
+        <div class="pred-action" id="pred-action"></div>
+        <div class="pred-timeframe" id="pred-timeframe"></div>
+    </div>
+    <button class="pred-close" onclick="document.getElementById('prediction-banner').style.display='none'">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+</div>
+
+<!-- AUTO ANALYSIS TOAST -->
+<div class="auto-analysis-toast" id="auto-toast" onclick="openAutoAnalysis()">
+    <div class="aat-icon"><i class="fa-solid fa-robot"></i></div>
+    <div>
+        <div class="aat-title">🚨 CRITICAL Alert Auto-Analyzed</div>
+        <div class="aat-sub" id="aat-sub">Click to view AI forensic report</div>
+    </div>
+    <div class="aat-badge">NEW</div>
+</div>
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="topbar-left">
+            <span class="page-title">Threat Intelligence Platform</span>
+            <span class="breadcrumb">// Real-Time Network Behavior Analytics</span>
+        </div>
+        <div class="topbar-right">
+            <div class="ws-indicator" id="ws-indicator">
+                <span class="mini-dot"></span>WS CONNECTED
+            </div>
+            <div class="clock" id="clock">--:--:--</div>
+            <div class="threat-level tl-monitor" id="threat-level-badge">
+                <i class="fa-solid fa-circle-radiation"></i>
+                THREAT LEVEL: <span id="tl-text">MONITORING</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 01 OVERVIEW -->
+    <section id="overview">
+        <div class="section-header">
+            <span class="section-tag">01</span>
+            <h2>Traffic Overview</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-card" data-color="blue">
+                <div class="metric-icon"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="metric-label">Total Packets</div>
+                <div class="metric-value" id="total_packets">{{ total_packets }}</div>
+                <div class="metric-bar"><div class="metric-bar-fill blue"></div></div>
+                <div class="metric-glow blue-glow"></div>
+            </div>
+            <div class="metric-card" data-color="green">
+                <div class="metric-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></div>
+                <div class="metric-label">TCP Traffic</div>
+                <div class="metric-value" id="tcp_count">{{ tcp_count }}</div>
+                <div class="metric-bar"><div class="metric-bar-fill green"></div></div>
+                <div class="metric-glow green-glow"></div>
+            </div>
+            <div class="metric-card" data-color="amber">
+                <div class="metric-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="metric-label">UDP Traffic</div>
+                <div class="metric-value" id="udp_count">{{ udp_count }}</div>
+                <div class="metric-bar"><div class="metric-bar-fill amber"></div></div>
+                <div class="metric-glow amber-glow"></div>
+            </div>
+            <div class="metric-card pulse-card" data-color="red">
+                <div class="metric-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="metric-label">Total Alerts</div>
+                <div class="metric-value" id="attack_count">{{ attack_count }}</div>
+                <div class="metric-bar"><div class="metric-bar-fill red"></div></div>
+                <div class="metric-glow red-glow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 INTELLIGENCE -->
+    <section id="intel">
+        <div class="section-header">
+            <span class="section-tag">02</span>
+            <h2>Threat Intelligence</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="intel-grid">
+            <div class="intel-card">
+                <div class="intel-icon"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="intel-label">Top Threat Source</div>
+                <div class="intel-value mono" id="top_threat_ip">{{ top_threat_ip }}</div>
+                <div class="intel-tag">IP ADDRESS</div>
+            </div>
+            <div class="intel-card">
+                <div class="intel-icon"><i class="fa-solid fa-virus"></i></div>
+                <div class="intel-label">Most Common Attack</div>
+                <div class="intel-value" id="top_threat_type">{{ top_threat_type }}</div>
+                <div class="intel-tag">ATTACK TYPE</div>
+            </div>
+            <div class="intel-card clickable-card" 
+            onclick="openThreatModal({ip:'{{ top_threat_ip }}', threat_type:'{{ top_threat_type }}', severity:'{{ highest_severity }}', timestamp:new Date().toISOString(), protocol:'TCP'})"
+            title="Click for threat details">
+            <div class="intel-icon"><i class="fa-solid fa-calendar-day"></i></div>
+            <div class="intel-label">Threats Today</div>
+            <div class="intel-value" id="threats_today">{{ threats_today }}</div>
+            <div class="intel-tag">
+                COUNT <span class="click-hint">· CLICK FOR DETAILS</span>
+            </div>
+        </div>
+            <div class="intel-card">
+                <div class="intel-icon"><i class="fa-solid fa-fire"></i></div>
+                <div class="intel-label">Highest Severity</div>
+                <div class="intel-value sev-{{ highest_severity }}" id="highest_severity">{{ highest_severity }}</div>
+                <div class="intel-tag">SEVERITY LEVEL</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 RISK SCORES -->
+    <section id="risk">
+        <div class="section-header">
+            <span class="section-tag">03</span>
+            <h2>IP Risk Scoring Engine</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="risk-panel">
+            <div class="risk-legend">
+                <span class="risk-legend-item"><span class="rl-dot" style="background:#f43f5e"></span>CRITICAL 80–100</span>
+                <span class="risk-legend-item"><span class="rl-dot" style="background:#fb923c"></span>HIGH 60–79</span>
+                <span class="risk-legend-item"><span class="rl-dot" style="background:#fbbf24"></span>MEDIUM 30–59</span>
+                <span class="risk-legend-item"><span class="rl-dot" style="background:#10b981"></span>LOW 0–29</span>
+            </div>
+            <div class="risk-list" id="risk-list">
+                {% for r in risk_scores %}
+                <div class="risk-row">
+                    <div class="risk-rank">#{{ loop.index }}</div>
+                    <div class="risk-ip mono">{{ r.ip }}</div>
+                    <div class="risk-bar-wrap">
+                        <div class="risk-bar-track">
+                            <div class="risk-bar-fill risk-{{ r.level }}"
+                                 style="width:{{ r.score }}%"></div>
+                        </div>
+                        <span class="risk-score risk-{{ r.level }}">{{ r.score }}</span>
+                    </div>
+                    <div class="risk-meta">
+                        <span class="risk-badge risk-{{ r.level }}">{{ r.level }}</span>
+                        <span class="risk-detail">{{ r.alerts }} alerts · {{ r.top_threat }}</span>
+                    </div>
+                </div>
+                {% else %}
+                <div class="empty-state"><i class="fa-solid fa-circle-check"></i> No threats detected yet</div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 ANALYTICS -->
+    <section id="analytics">
+        <div class="section-header">
+            <span class="section-tag">04</span>
+            <h2>Analytics</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-panel wide">
+                <div class="chart-panel-header">
+                    <span><i class="fa-solid fa-chart-line"></i> Threat Trend — Last 12 Hours</span>
+                    <span class="chart-live-tag"><span class="mini-dot"></span>LIVE</span>
+                </div>
+                <div class="chart-wrap" style="height:200px">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-panel">
+                <div class="chart-panel-header">
+                    <span><i class="fa-solid fa-chart-bar"></i> Protocol Split</span>
+                </div>
+                <div class="chart-wrap" style="height:200px">
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 HEATMAP -->
+    <section id="heatmap">
+        <div class="section-header">
+            <span class="section-tag">05</span>
+            <h2>Attack Heatmap</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="chart-panel">
+            <div class="chart-panel-header">
+                <span><i class="fa-solid fa-fire"></i> Attacks per Hour × Day of Week</span>
+                <span class="chart-live-tag"><span class="mini-dot"></span>LIVE</span>
+            </div>
+            <div id="heatmap-container"></div>
+        </div>
+    </section>
+
+    <!-- 06 TOPOLOGY -->
+    <section id="topology">
+        <div class="section-header">
+            <span class="section-tag">06</span>
+            <h2>Network Topology</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="chart-panel">
+            <div class="chart-panel-header">
+                <span><i class="fa-solid fa-diagram-project"></i> Live IP Communication Graph</span>
+                <span style="font-size:0.7rem;color:var(--muted)">
+                    <span style="color:var(--red)">●</span> Attacker &nbsp;
+                    <span style="color:var(--accent)">●</span> Normal
+                </span>
+            </div>
+            <div id="topology-graph" style="height:400px;"></div>
+        </div>
+    </section>
+
+    <!-- 07 PORT ANALYSIS -->
+    <section id="ports">
+        <div class="section-header">
+            <span class="section-tag">07</span>
+            <h2>Port Analysis</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="charts-grid">
+            <div class="chart-panel">
+                <div class="chart-panel-header">
+                    <span><i class="fa-solid fa-plug"></i> Top Destination Ports</span>
+                </div>
+                <div class="chart-wrap" style="height:220px">
+                    <canvas id="portChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-panel">
+                <div class="chart-panel-header">
+                    <span><i class="fa-solid fa-skull"></i> Suspicious Ports Detected</span>
+                </div>
+                <div class="suspicious-list" id="suspicious-list">
+                    {% for p in port_analysis.suspicious %}
+                    <div class="susp-row">
+                        <span class="susp-port mono">:{{ p.port }}</span>
+                        <span class="susp-service">{{ p.service }}</span>
+                        <span class="susp-count">{{ p.count }} hits</span>
+                    </div>
+                    {% else %}
+                    <div class="empty-state"><i class="fa-solid fa-circle-check"></i> No suspicious ports</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 08 THREATS -->
+    <section id="threats">
+        <div class="section-header">
+            <span class="section-tag">08</span>
+            <h2>Active Threats</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="threat-grid" id="threatPanel">
+            {% for alert in alerts %}
+            <div class="threat-card sev-border-{{ alert.Severity }} clickable-card"
+                onclick="openThreatModal({ip:'{{ alert.Source_IP }}', threat_type:'{{ alert.Threat_Type }}', severity:'{{ alert.Severity }}', timestamp:'{{ alert.Timestamp }}', protocol:'TCP'})"
+                title="Click for AI threat analysis">
+                <div class="threat-card-top">
+                    <span class="sev-badge sev-{{ alert.Severity }}">
+                        <i class="fa-solid fa-circle"></i> {{ alert.Severity }}
+                    </span>
+                    <span class="threat-ts">{{ alert.Timestamp }}</span>
+                </div>
+                <div class="threat-ip">{{ alert.Source_IP }}</div>
+                <div class="threat-type">{{ alert.Threat_Type }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- 09 GEO MAP -->
+    <section id="map">
+        <div class="section-header">
+            <span class="section-tag">09</span>
+            <h2>Threat Origin Map</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="map-panel">
+            <div id="world-map"></div>
+            <div class="geo-list" id="geo-table">
+                <div class="geo-list-header">
+                    <span>IP Address</span><span>Location</span><span>ISP</span>
+                </div>
+                {% for geo in geo_data %}
+                <div class="geo-row">
+                    <span class="geo-ip">{{ geo.ip }}</span>
+                    <span>{{ geo.city }}, {{ geo.country }}</span>
+                    <span class="geo-isp">{{ geo.isp }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 10 LIVE STREAM -->
+    <section id="stream">
+        <div class="section-header">
+            <span class="section-tag">10</span>
+            <h2>Live Network Stream</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="stream-container">
+            <div class="stream-wrapper">
+                <div class="stream-track" id="stream_track_1">
+                    {% for packet in packets %}
+                    <div class="stream-item">
+                        <span class="stream-time">{{ packet.Timestamp }}</span>
+                        <span class="proto-badge {{ packet.Protocol }}">{{ packet.Protocol }}</span>
+                        <span class="stream-route">
+                            {{ packet.Source_IP }}:{{ packet.Source_Port }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                            {{ packet.Destination_IP }}:{{ packet.Destination_Port }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="stream-track" id="stream_track_2">
+                    {% for packet in packets %}
+                    <div class="stream-item">
+                        <span class="stream-time">{{ packet.Timestamp }}</span>
+                        <span class="proto-badge {{ packet.Protocol }}">{{ packet.Protocol }}</span>
+                        <span class="stream-route">
+                            {{ packet.Source_IP }}:{{ packet.Source_Port }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                            {{ packet.Destination_IP }}:{{ packet.Destination_Port }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- 11 AI CHAT -->
+<section id="chat">
+    <div class="section-header">
+        <span class="section-tag">11</span>
+        <h2>AI Security Analyst Chat</h2>
+        <div class="section-line"></div>
+    </div>
+
+    <div class="chat-panel">
+        <div class="chat-header">
+            <div class="chat-header-left">
+                <div class="chat-ai-avatar">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                    <div class="chat-ai-name">AI-IDS Analyst</div>
+                    <div class="chat-ai-status">
+                        <span class="mini-dot"></span> Connected to live data
+                    </div>
+                </div>
+            </div>
+            <button class="chat-clear-btn" onclick="clearChat()">
+                <i class="fa-solid fa-broom"></i> Clear
+            </button>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+            <!-- Welcome message -->
+            <div class="chat-msg ai-msg">
+                <div class="msg-avatar ai-avatar">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="msg-bubble ai-bubble">
+                    <div class="msg-text">
+                        👋 Hello! I'm your AI security analyst. I have live access to your network data.<br><br>
+                        You can ask me things like:<br>
+                        <span class="chat-suggestion" onclick="sendSuggestion(this)">Which IP is most dangerous right now?</span>
+                        <span class="chat-suggestion" onclick="sendSuggestion(this)">Explain the latest attack</span>
+                        <span class="chat-suggestion" onclick="sendSuggestion(this)">Should I be worried about current traffic?</span>
+                        <span class="chat-suggestion" onclick="sendSuggestion(this)">What are the top threats today?</span>
+                        <span class="chat-suggestion" onclick="sendSuggestion(this)">Give me a security summary</span>
+                    </div>
+                    <div class="msg-time">Just now</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="chat-input-wrap">
+                <input type="text" id="chat-input"
+                       class="chat-input"
+                       placeholder="Ask anything about your network security..."
+                       onkeydown="if(event.key==='Enter') sendChat()">
+                <button class="chat-send-btn" onclick="sendChat()" id="chat-send-btn">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+            <div class="chat-hint">
+                <i class="fa-solid fa-circle-info"></i>
+                AI has access to live alerts, risk scores, blocked IPs and traffic data
+            </div>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<script>
+// ── CLOCK ──────────────────────────────────────────
+setInterval(() => {
+    const d = new Date();
+    const date = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    const time = d.toTimeString().slice(0,8);
+    document.getElementById('clock').textContent = `${date} ${time}`;
+}, 1000);
+
+// ── THREAT LEVEL ────────────────────────────────────
+function setThreatLevel(sev) {
+    const map = {
+        'CRITICAL': ['CRITICAL','tl-critical'],
+        'HIGH':     ['ELEVATED','tl-high'],
+        'MEDIUM':   ['GUARDED', 'tl-medium'],
+        'LOW':      ['LOW',     'tl-low'],
+        '—':        ['MONITORING','tl-monitor']
+    };
+    const [text, cls] = map[sev] || map['—'];
+    document.getElementById('tl-text').textContent = text;
+    document.getElementById('threat-level-badge').className = 'threat-level ' + cls;
+}
+setThreatLevel('{{ highest_severity }}');
+
+// ── TREND CHART ─────────────────────────────────────
+const trendCtx = document.getElementById('trendChart').getContext('2d');
+const trendChart = new Chart(trendCtx, {
+    type: 'line',
+    data: {
+        labels: {{ hourly_labels | tojson }},
+        datasets: [{ data: {{ hourly_counts | tojson }},
+            borderColor:'#f43f5e', backgroundColor:'rgba(244,63,94,0.06)',
+            borderWidth:2, fill:true, tension:0.4,
+            pointBackgroundColor:'#f43f5e', pointRadius:3 }]
+    },
+    options: { responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:false } },
+        scales: {
+            y:{ beginAtZero:true, ticks:{ color:'#4a5568', stepSize:1 }, grid:{ color:'rgba(255,255,255,0.04)' }, border:{ color:'transparent' } },
+            x:{ ticks:{ color:'#4a5568', font:{ size:10 } }, grid:{ display:false }, border:{ color:'transparent' } }
+        }
+    }
+});
+
+// ── PROTOCOL CHART ──────────────────────────────────
+const barCtx = document.getElementById('trafficChart').getContext('2d');
+const trafficChart = new Chart(barCtx, {
+    type:'bar',
+    data:{ labels:['TCP','UDP'],
+        datasets:[{ data:[Number("{{ tcp_count }}"), Number("{{ udp_count }}")],
+            backgroundColor:['rgba(56,189,248,0.15)','rgba(251,191,36,0.15)'],
+            borderColor:['#38bdf8','#fbbf24'], borderWidth:2, borderRadius:6, barThickness:60 }]
+    },
+    options:{ responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:false } },
+        scales:{
+            y:{ beginAtZero:true, ticks:{ color:'#4a5568' }, grid:{ color:'rgba(255,255,255,0.04)' }, border:{ color:'transparent' } },
+            x:{ grid:{ display:false }, ticks:{ color:'#94a3b8', font:{ size:13, weight:'bold' } }, border:{ color:'transparent' } }
+        }
+    }
+});
+
+// ── PORT CHART ──────────────────────────────────────
+const portData = {{ port_analysis.top_ports | tojson }};
+const portCtx  = document.getElementById('portChart').getContext('2d');
+const portChart = new Chart(portCtx, {
+    type:'bar',
+    data:{ labels: portData.map(p => ':' + p.port),
+        datasets:[{ data: portData.map(p => p.count),
+            backgroundColor:'rgba(167,139,250,0.15)',
+            borderColor:'#a78bfa', borderWidth:2, borderRadius:4, barThickness:22 }]
+    },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{ display:false } },
+        scales:{
+            x:{ beginAtZero:true, ticks:{ color:'#4a5568' }, grid:{ color:'rgba(255,255,255,0.04)' }, border:{ color:'transparent' } },
+            y:{ ticks:{ color:'#a78bfa', font:{ family:'JetBrains Mono, monospace', size:11 } }, grid:{ display:false }, border:{ color:'transparent' } }
+        }
+    }
+});
+
+// ── HEATMAP ─────────────────────────────────────────
+function renderHeatmap(matrix) {
+    const container = document.getElementById('heatmap-container');
+    container.innerHTML = '';
+    const days  = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const hours = Array.from({length:24}, (_,i) => i);
+    const flat  = matrix.flat();
+    const maxVal = Math.max(...flat, 1);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'heatmap-wrap';
+
+    // Hour labels
+    const hlRow = document.createElement('div');
+    hlRow.className = 'hm-hour-labels';
+    hlRow.innerHTML = '<div class="hm-spacer"></div>' +
+        hours.map(h => `<div class="hm-hlabel">${h.toString().padStart(2,'0')}</div>`).join('');
+    wrap.appendChild(hlRow);
+
+    days.forEach((day, di) => {
+        const row = document.createElement('div');
+        row.className = 'hm-row';
+        row.innerHTML = `<div class="hm-day">${day}</div>`;
+        hours.forEach(hi => {
+            const val  = matrix[di][hi];
+            const pct  = val / maxVal;
+            const cell = document.createElement('div');
+            cell.className = 'hm-cell';
+            cell.style.background = val === 0
+                ? 'rgba(255,255,255,0.03)'
+                : `rgba(244,63,94,${0.1 + pct * 0.85})`;
+            cell.title = `${day} ${hi.toString().padStart(2,'0')}:00 — ${val} attacks`;
+            row.appendChild(cell);
+        });
+        wrap.appendChild(row);
+    });
+
+    // Legend
+    const leg = document.createElement('div');
+    leg.className = 'hm-legend';
+    leg.innerHTML = `<span>0</span>
+        <div class="hm-legend-bar"></div>
+        <span>${maxVal} attacks</span>`;
+    wrap.appendChild(leg);
+    container.appendChild(wrap);
+}
+renderHeatmap({{ heatmap | tojson }});
+
+// ── TOPOLOGY GRAPH ──────────────────────────────────
+function renderTopology(data) {
+    const el = document.getElementById('topology-graph');
+    el.innerHTML = '';
+    if (!data.nodes.length) {
+        el.innerHTML = '<div class="empty-state"><i class="fa-solid fa-circle-info"></i> Waiting for traffic data...</div>';
+        return;
+    }
+    const W = el.offsetWidth || 800;
+    const H = 400;
+
+    const svg = d3.select('#topology-graph').append('svg')
+        .attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+
+    const sim = d3.forceSimulation(data.nodes)
+        .force('link', d3.forceLink(data.edges)
+            .id(d => d.id).distance(80))
+        .force('charge', d3.forceManyBody().strength(-180))
+        .force('center', d3.forceCenter(W/2, H/2))
+        .force('collision', d3.forceCollide(20));
+
+    const link = svg.append('g').selectAll('line')
+        .data(data.edges).join('line')
+        .attr('stroke','rgba(255,255,255,0.08)')
+        .attr('stroke-width', d => Math.min(d.count * 0.3, 3));
+
+    const node = svg.append('g').selectAll('g')
+        .data(data.nodes).join('g')
+        .call(d3.drag()
+            .on('start', (e,d) => { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+            .on('drag',  (e,d) => { d.fx=e.x; d.fy=e.y; })
+            .on('end',   (e,d) => { if (!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+
+    node.append('circle')
+        .attr('r', d => Math.min(6 + d.connections * 0.5, 18))
+        .attr('fill', d => d.type === 'attacker' ? '#f43f5e' : '#38bdf8')
+        .attr('fill-opacity', 0.85)
+        .attr('stroke', d => d.type === 'attacker' ? '#f43f5e' : '#38bdf8')
+        .attr('stroke-opacity', 0.3)
+        .attr('stroke-width', 6);
+
+    node.append('text')
+        .text(d => d.id)
+        .attr('font-size', 9)
+        .attr('fill', '#64748b')
+        .attr('dx', 12).attr('dy', 4);
+
+    node.append('title').text(d => `${d.id}\n${d.connections} connections\n${d.type}`);
+
+    sim.on('tick', () => {
+        link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+        node.attr('transform', d => `translate(${
+            Math.max(20, Math.min(W-20, d.x))},${
+            Math.max(20, Math.min(H-20, d.y))})`);
+    });
+}
+renderTopology({{ topology | tojson }});
+
+// ── WORLD MAP ───────────────────────────────────────
+function renderWorldMap(geoData) {
+    const mapEl = document.getElementById('world-map');
+    mapEl.innerHTML = '';
+    const W = mapEl.offsetWidth || 800, H = 300;
+    if (typeof d3 === 'undefined' || typeof topojson === 'undefined') {
+        mapEl.innerHTML = '<div class="map-error">Map library could not load. Check your internet connection and refresh.</div>';
+        return;
+    }
+    const svg = d3.select('#world-map').append('svg')
+        .attr('width','100%').attr('viewBox',`0 0 ${W} ${H}`);
+    const proj = d3.geoNaturalEarth1().scale(W/6.2).translate([W/2, H/2]);
+    const pathGen = d3.geoPath().projection(proj);
+    d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+        svg.selectAll('path')
+            .data(topojson.feature(world, world.objects.countries).features)
+            .join('path').attr('d', pathGen)
+            .attr('fill','#1a2035').attr('stroke','#2d3a55').attr('stroke-width',0.5);
+        geoData.forEach(geo => {
+            if (!geo.lat || !geo.lon) return;
+            const [x,y] = proj([geo.lon, geo.lat]);
+            if (!x||!y) return;
+            svg.append('circle').attr('cx',x).attr('cy',y).attr('r',10)
+                .attr('fill','rgba(244,63,94,0.12)');
+            svg.append('circle').attr('cx',x).attr('cy',y).attr('r',4)
+                .attr('fill','#f43f5e').attr('stroke','#fff').attr('stroke-width',1)
+                .append('title').text(`${geo.ip}\n${geo.city}, ${geo.country}\n${geo.isp}`);
+        });
+        if (!geoData.length) {
+            svg.append('text').attr('x', W/2).attr('y', H-18)
+                .attr('text-anchor','middle').attr('fill','#94a3b8')
+                .attr('font-size','12')
+                .text('No public threat IP coordinates available');
+        }
+    }).catch(() => {
+        mapEl.innerHTML = '<div class="map-error">World map data could not load. Check your internet connection and refresh.</div>';
+    });
+}
+renderWorldMap({{ geo_data | tojson }});
+
+// ── WEBSOCKET LIVE UPDATE ───────────────────────────
+function updateAll(data) {
+    // Metrics
+    document.getElementById('total_packets').textContent = data.total_packets;
+    document.getElementById('tcp_count').textContent     = data.tcp_count;
+    document.getElementById('udp_count').textContent     = data.udp_count;
+    document.getElementById('attack_count').textContent  = data.attack_count;
+    document.getElementById('top_threat_ip').textContent   = data.top_threat_ip;
+    document.getElementById('top_threat_type').textContent = data.top_threat_type;
+    document.getElementById('threats_today').textContent   = data.threats_today;
+    const sevEl = document.getElementById('highest_severity');
+    sevEl.textContent  = data.highest_severity;
+    sevEl.className    = 'intel-value sev-' + data.highest_severity;
+    setThreatLevel(data.highest_severity);
+
+    // Charts
+    trendChart.data.labels           = data.hourly_labels;
+    trendChart.data.datasets[0].data = data.hourly_counts;
+    trendChart.update('none');
+    trafficChart.data.datasets[0].data = [data.tcp_count, data.udp_count];
+    trafficChart.update('none');
+    if (data.port_analysis?.top_ports) {
+        portChart.data.labels           = data.port_analysis.top_ports.map(p => ':'+p.port);
+        portChart.data.datasets[0].data = data.port_analysis.top_ports.map(p => p.count);
+        portChart.update('none');
+    }
+
+    // Heatmap
+    if (data.heatmap) renderHeatmap(data.heatmap);
+
+    // Risk scores
+    if (data.risk_scores) {
+        document.getElementById('risk-list').innerHTML =
+            data.risk_scores.length ? data.risk_scores.map((r,i) => `
+            <div class="risk-row">
+                <div class="risk-rank">#${i+1}</div>
+                <div class="risk-ip mono">${r.ip}</div>
+                <div class="risk-bar-wrap">
+                    <div class="risk-bar-track">
+                        <div class="risk-bar-fill risk-${r.level}" style="width:${r.score}%"></div>
+                    </div>
+                    <span class="risk-score risk-${r.level}">${r.score}</span>
+                </div>
+                <div class="risk-meta">
+                    <span class="risk-badge risk-${r.level}">${r.level}</span>
+                    <span class="risk-detail">${r.alerts} alerts · ${r.top_threat}</span>
+                </div>
+            </div>`).join('') :
+            '<div class="empty-state"><i class="fa-solid fa-circle-check"></i> No threats detected yet</div>';
+    }
+
+    // Suspicious ports
+    if (data.port_analysis?.suspicious) {
+        document.getElementById('suspicious-list').innerHTML =
+            data.port_analysis.suspicious.length
+            ? data.port_analysis.suspicious.map(p => `
+                <div class="susp-row">
+                    <span class="susp-port mono">:${p.port}</span>
+                    <span class="susp-service">${p.service}</span>
+                    <span class="susp-count">${p.count} hits</span>
+                </div>`).join('')
+            : '<div class="empty-state"><i class="fa-solid fa-circle-check"></i> No suspicious ports</div>';
+    }
+
+    // Threats
+   document.getElementById('threatPanel').innerHTML =
+        (data.alerts||[]).map(a => `
+        <div class="threat-card sev-border-${a.Severity} clickable-card"
+             onclick="openThreatModal({
+                ip: '${a.Source_IP}',
+                threat_type: '${a.Threat_Type}',
+                severity: '${a.Severity}',
+                timestamp: '${a.Timestamp}',
+                protocol: 'TCP'
+             })"
+             title="Click for AI threat analysis">
+            <div class="threat-card-top">
+                <span class="sev-badge sev-${a.Severity}">
+                    <i class="fa-solid fa-circle"></i> ${a.Severity}
+                </span>
+                <span class="threat-ts">${a.Timestamp}</span>
+            </div>
+            <div class="threat-ip">${a.Source_IP}</div>
+            <div class="threat-type">${a.Threat_Type}</div>
+        </div>`).join('');
+
+    // Geo table
+    if (data.geo_data) {
+        renderWorldMap(data.geo_data);
+        document.getElementById('geo-table').innerHTML =
+            `<div class="geo-list-header"><span>IP Address</span><span>Location</span><span>ISP</span></div>` +
+            data.geo_data.map(g => `
+            <div class="geo-row">
+                <span class="geo-ip">${g.ip}</span>
+                <span>${g.city}, ${g.country}</span>
+                <span class="geo-isp">${g.isp}</span>
+            </div>`).join('');
+    }
+
+    // Stream
+    const streamHtml = (data.packets||[]).map(p => `
+        <div class="stream-item">
+            <span class="stream-time">${p.Timestamp}</span>
+            <span class="proto-badge ${p.Protocol}">${p.Protocol}</span>
+            <span class="stream-route">${p.Source_IP}:${p.Source_Port}
+            <i class="fa-solid fa-arrow-right"></i>
+            ${p.Destination_IP}:${p.Destination_Port}</span>
+        </div>`).join('');
+    document.getElementById('stream_track_1').innerHTML = streamHtml;
+    document.getElementById('stream_track_2').innerHTML = streamHtml;
+
+    // ── Auto-analysis toast ──────────────────────────────────
+    if (data.auto_analysis) {
+        const a = data.auto_analysis;
+        window._latestAutoAnalysis = a;
+
+        const sub = document.getElementById('aat-sub');
+        if (sub) {
+            sub.textContent =
+                `${a.alert?.threat_type || 'Unknown'} from ${a.alert?.ip || '?'} — ` +
+                `${a.report?.mitre_technique || ''}`;
+        }
+
+        const toast = document.getElementById('auto-toast');
+        if (toast) {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 8000);
+        }
+    }
+
+    // ── Attack prediction banner ─────────────────────────────
+    if (data.prediction && data.prediction.prediction) {
+        const p      = data.prediction;
+        const banner = document.getElementById('prediction-banner');
+
+        document.getElementById('pred-text').textContent     = p.prediction || '';
+        document.getElementById('pred-prob').textContent     = p.probability || '';
+        document.getElementById('pred-action').textContent   = '⚡ ' + (p.recommended_action || '');
+        document.getElementById('pred-timeframe').textContent= p.timeframe || '';
+
+        // Color banner by threat level
+        const colors = {
+            CRITICAL: 'rgba(239,68,68,0.12)',
+            HIGH:     'rgba(249,115,22,0.10)',
+            MEDIUM:   'rgba(234,179,8,0.08)',
+            LOW:      'rgba(34,197,94,0.08)',
+        };
+        banner.style.background = colors[p.threat_level] || colors.MEDIUM;
+        banner.style.display    = 'flex';
+    }
+
+
+}
+
+// WebSocket connection
+const wsIndicator = document.getElementById('ws-indicator');
+function connectWS() {
+    const ws = new WebSocket(`ws://${location.host}/ws/stats`);
+    ws.onopen = () => {
+        wsIndicator.className = 'ws-indicator ws-on';
+        wsIndicator.innerHTML = '<span class="mini-dot"></span>WS CONNECTED';
+    };
+    ws.onmessage = e => updateAll(JSON.parse(e.data));
+    ws.onclose   = () => {
+        wsIndicator.className = 'ws-indicator ws-off';
+        wsIndicator.innerHTML = '<span class="mini-dot off"></span>RECONNECTING...';
+        setTimeout(connectWS, 3000);
+    };
+}
+connectWS();
+
+// Sidebar scroll spy
+const sections = document.querySelectorAll('section');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+    navItems.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#'+current));
+}, { passive:true });
+// ── THREAT INTEL MODAL ──────────────────────────────
+// ── AI THREAT ANALYST MODAL ────────────────────────
+let currentAlertData = null;
+
+async function openThreatModal(alertData) {
+    currentAlertData = alertData;
+
+    // Show modal in loading state
+    document.getElementById('modal-overlay').classList.add('active');
+    document.getElementById('threat-modal').classList.add('active');
+    document.getElementById('modal-loading').style.display = 'flex';
+    document.getElementById('modal-body').style.display    = 'none';
+    document.getElementById('modal-title').textContent     = 'AI Threat Analysis';
+    document.getElementById('modal-mitre').textContent     = `Analyzing ${alertData.threat_type}...`;
+
+    // Cycle loading messages
+    const loadingMsgs = [
+        'Reading packet metadata...',
+        'Identifying attack signature...',
+        'Querying threat intelligence...',
+        'Generating forensic report...'
+    ];
+    let msgIndex = 0;
+    const msgInterval = setInterval(() => {
+        document.getElementById('loading-detail').textContent =
+            loadingMsgs[msgIndex++ % loadingMsgs.length];
+    }, 1200);
+
+    try {
+        const res    = await fetch('/api/analyze-threat', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(alertData)
+        });
+        const report = await res.json();
+        clearInterval(msgInterval);
+        renderModal(alertData, report);
+
+    } catch(e) {
+        clearInterval(msgInterval);
+        console.error('Modal error:', e);
+        document.getElementById('loading-detail').textContent =
+            'Analysis failed — check API connection.';
+    }
+}
+
+function renderModal(alert, report) {
+    // Source bar
+    document.getElementById('alert-source-bar').innerHTML = `
+        <div class="asb-item">
+            <span class="asb-label">SOURCE IP</span>
+            <span class="asb-value mono">${alert.ip}</span>
+        </div>
+        <div class="asb-item">
+            <span class="asb-label">ATTACK TYPE</span>
+            <span class="asb-value">${alert.threat_type}</span>
+        </div>
+        <div class="asb-item">
+            <span class="asb-label">SEVERITY</span>
+            <span class="asb-value sev-${alert.severity}">${alert.severity}</span>
+        </div>
+        <div class="asb-item">
+            <span class="asb-label">TIMESTAMP</span>
+            <span class="asb-value mono">${alert.timestamp}</span>
+        </div>
+        <div class="asb-item">
+            <span class="asb-label">RISK LEVEL</span>
+            <span class="asb-value sev-${report.risk_level}">${report.risk_level}</span>
+        </div>
+    `;
+
+    document.getElementById('modal-title').textContent  = report.mitre_technique || 'Threat Analysis';
+    document.getElementById('modal-mitre').textContent  = `MITRE ATT&CK: ${report.mitre_technique}`;
+    document.getElementById('modal-summary').textContent  = report.attack_summary;
+    document.getElementById('modal-what').textContent     = report.attack_type_explanation;
+    document.getElementById('modal-goal').textContent     = report.what_they_were_trying;
+    document.getElementById('modal-why-ip').textContent   = report.why_this_ip;
+
+    document.getElementById('modal-indicators').innerHTML =
+        (report.threat_indicators||[]).map(i =>
+            `<li><i class="fa-solid fa-triangle-exclamation" style="color:#f59e0b"></i> ${i}</li>`
+        ).join('');
+
+    document.getElementById('modal-immediate').innerHTML =
+        (report.immediate_actions||[]).map(i =>
+            `<li><i class="fa-solid fa-bolt" style="color:#f43f5e"></i> ${i}</li>`
+        ).join('');
+
+    document.getElementById('modal-remediation').innerHTML =
+        (report.remediation_steps||[]).map(i =>
+            `<li>${i}</li>`
+        ).join('');
+
+    document.getElementById('modal-prevention').innerHTML =
+        (report.prevention||[]).map(i =>
+            `<li><i class="fa-solid fa-check"></i> ${i}</li>`
+        ).join('');
+
+    document.getElementById('modal-severity-reason').textContent =
+        report.severity_reason || '';
+    document.getElementById('modal-confidence').textContent =
+        `AI Confidence: ${report.confidence}`;
+
+    // Switch from loading to content
+    document.getElementById('modal-loading').style.display = 'none';
+    document.getElementById('modal-body').style.display    = 'block';
+}
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.getElementById('threat-modal').classList.remove('active');
+}
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+});
+
+function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('active');
+    document.getElementById('threat-modal').classList.remove('active');
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+});
+</script>
+
+<!-- EMAIL SETTINGS MODAL -->
+<div class="modal-overlay" id="email-overlay" onclick="closeEmailSettings()"></div>
+<div class="email-modal" id="email-modal">
+
+    <div class="modal-header">
+        <div class="modal-title-row">
+            <div class="modal-icon" style="background:rgba(99,102,241,0.15);color:#6366f1;">
+                <i class="fa-solid fa-envelope-circle-check"></i>
+            </div>
+            <div>
+                <div class="modal-title">Alert Email Settings</div>
+                <div class="modal-mitre">Configure where CRITICAL alerts are sent</div>
+            </div>
+        </div>
+        <button class="modal-close" onclick="closeEmailSettings()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div style="padding:24px 28px;">
+
+        <!-- Status banner -->
+        <div class="email-status-banner" id="email-status-banner">
+            <i class="fa-solid fa-circle-info"></i>
+            <span id="email-status-text">Enter your email below and save to enable alerts.</span>
+        </div>
+
+        <!-- Form -->
+        <div class="email-form-grid">
+
+            <div class="email-field">
+                <label class="email-label">
+                    <i class="fa-solid fa-envelope"></i> Alert Recipient Email
+                </label>
+                <input type="email" id="input-receiver"
+                       class="email-input"
+                       placeholder="you@gmail.com"
+                       autocomplete="email">
+                <span class="email-hint">CRITICAL threats will be sent here instantly</span>
+            </div>
+
+            <div class="email-field">
+                <label class="email-label">
+                    <i class="fa-brands fa-google"></i> Gmail Sender Address
+                </label>
+                <input type="email" id="input-sender"
+                       class="email-input"
+                       placeholder="your_sender@gmail.com">
+                <span class="email-hint">The Gmail account that sends the alert</span>
+            </div>
+
+            <div class="email-field">
+                <label class="email-label">
+                    <i class="fa-solid fa-key"></i> Gmail App Password
+                </label>
+                <div style="position:relative;">
+                    <input type="password" id="input-password"
+                           class="email-input"
+                           placeholder="xxxx xxxx xxxx xxxx"
+                           style="padding-right:44px;">
+                    <button onclick="togglePasswordVisibility()"
+                            style="position:absolute;right:12px;top:50%;transform:translateY(-50%);
+                                   background:none;border:none;color:#64748b;cursor:pointer;
+                                   font-size:14px;" id="eye-btn">
+                        <i class="fa-solid fa-eye" id="eye-icon"></i>
+                    </button>
+                </div>
+                <span class="email-hint">
+                    Not your Gmail password —
+                    <a href="https://myaccount.google.com/apppasswords"
+                       target="_blank" style="color:#6366f1;">
+                        Generate an App Password here
+                    </a>
+                </span>
+            </div>
+
+        </div>
+
+        <!-- Test + Save buttons -->
+        <div style="display:flex;gap:12px;margin-top:24px;">
+            <button class="email-save-btn" onclick="saveEmailSettings()">
+                <i class="fa-solid fa-floppy-disk"></i> Save Settings
+            </button>
+            <button class="email-test-btn" onclick="testEmailSettings()">
+                <i class="fa-solid fa-paper-plane"></i> Send Test Email
+            </button>
+        </div>
+
+        <!-- Info box -->
+        <div class="email-info-box">
+            <div class="email-info-title">
+                <i class="fa-solid fa-circle-info"></i> How to get a Gmail App Password
+            </div>
+            <ol class="email-info-steps">
+                <li>Go to your <b>Google Account → Security</b></li>
+                <li>Enable <b>2-Step Verification</b> if not already on</li>
+                <li>Search for <b>App Passwords</b> in the search bar</li>
+                <li>Create one for "Mail" → copy the 16-character code</li>
+                <li>Paste it above — it looks like: <code>xxxx xxxx xxxx xxxx</code></li>
+            </ol>
+        </div>
+
+    </div>
+</div>
+<!-- AI THREAT ANALYST MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+<div class="threat-modal" id="threat-modal">
+
+    <div class="modal-header">
+        <div class="modal-title-row">
+            <div class="modal-icon" id="modal-icon">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+                <div class="modal-title" id="modal-title">AI Threat Analysis</div>
+                <div class="modal-mitre" id="modal-mitre">Analyzing...</div>
+            </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+            <div class="ai-badge">
+                <i class="fa-solid fa-microchip"></i> AI POWERED
+            </div>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- LOADING STATE -->
+    <div class="modal-loading" id="modal-loading">
+        <div class="ai-spinner"></div>
+        <div class="loading-text">Claude AI is analyzing this attack...</div>
+        <div class="loading-sub" id="loading-detail">Reading packet data...</div>
+    </div>
+
+    <!-- REPORT CONTENT -->
+    <div class="modal-body" id="modal-body" style="display:none">
+
+        <!-- Alert source bar -->
+        <div class="alert-source-bar" id="alert-source-bar"></div>
+
+        <!-- Summary -->
+        <div class="modal-section">
+            <div class="modal-section-title">
+                <i class="fa-solid fa-file-waveform"></i> Attack Summary
+            </div>
+            <p class="modal-summary" id="modal-summary"></p>
+        </div>
+
+        <div class="modal-row2">
+            <!-- What happened -->
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <i class="fa-solid fa-gears"></i> What Happened
+                </div>
+                <p class="modal-text" id="modal-what"></p>
+            </div>
+            <!-- What they wanted -->
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <i class="fa-solid fa-crosshairs"></i> Attacker's Goal
+                </div>
+                <p class="modal-text" id="modal-goal"></p>
+            </div>
+        </div>
+
+        <!-- Why this IP -->
+        <div class="modal-section">
+            <div class="modal-section-title">
+                <i class="fa-solid fa-location-dot"></i> Source Analysis
+            </div>
+            <p class="modal-text" id="modal-why-ip"></p>
+        </div>
+
+        <!-- Threat indicators -->
+        <div class="modal-section">
+            <div class="modal-section-title">
+                <i class="fa-solid fa-triangle-exclamation"></i> Threat Indicators Detected
+            </div>
+            <ul class="modal-list" id="modal-indicators"></ul>
+        </div>
+
+        <!-- Immediate actions -->
+        <div class="modal-section urgent-section">
+            <div class="modal-section-title urgent-title">
+                <i class="fa-solid fa-bolt"></i> Immediate Actions Required
+            </div>
+            <ul class="modal-list urgent-list" id="modal-immediate"></ul>
+        </div>
+
+        <!-- Remediation -->
+        <div class="modal-section">
+            <div class="modal-section-title">
+                <i class="fa-solid fa-wrench"></i> Remediation Steps
+            </div>
+            <ul class="modal-list" id="modal-remediation"></ul>
+        </div>
+
+        <!-- Prevention -->
+        <div class="modal-section prevention-section">
+            <div class="modal-section-title">
+                <i class="fa-solid fa-shield-halved"></i> Long-Term Prevention
+            </div>
+            <ul class="modal-list prevention-list" id="modal-prevention"></ul>
+        </div>
+
+        <!-- Footer bar -->
+        <div class="modal-footer-bar">
+            <span id="modal-severity-reason"></span>
+            <span class="modal-confidence" id="modal-confidence"></span>
+        </div>
+
+    </div>
+</div>
+<script>
+// ── Confidence badge helper ──────────────────────────────────
+function renderConfidenceBadge(report) {
+    const riskColors = {
+        CRITICAL: { bg:"#fef2f2", text:"#ef4444", border:"#fca5a5" },
+        HIGH:     { bg:"#fff7ed", text:"#f97316", border:"#fed7aa" },
+        MEDIUM:   { bg:"#fefce8", text:"#eab308", border:"#fde68a" },
+        LOW:      { bg:"#f0fdf4", text:"#22c55e", border:"#bbf7d0" },
+    };
+    const risk = (report.risk_level || "LOW").toUpperCase();
+    const col  = riskColors[risk] || riskColors["LOW"];
+    const conf = report.confidence || "N/A";
+    const mitre = report.mitre_technique || "—";
+
+    // Confidence bar percentage
+    let pct = parseInt(conf.toString().replace("%","")) || 0;
+    const barColor = pct >= 85 ? "#22c55e" : pct >= 65 ? "#eab308"
+                   : pct >= 40 ? "#f97316" : "#ef4444";
+
+    return `
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;
+                padding:12px;background:#f8fafc;border-radius:8px;
+                border:1px solid #e2e8f0;">
+
+      <div style="background:${col.bg};border:1px solid ${col.border};
+                  border-radius:6px;padding:6px 14px;text-align:center;">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;
+                    font-weight:600;letter-spacing:0.5px;">Risk Level</div>
+        <div style="font-size:16px;font-weight:700;color:${col.text};">${risk}</div>
+      </div>
+
+      <div style="background:#ede9fe;border:1px solid #c4b5fd;
+                  border-radius:6px;padding:6px 14px;text-align:center;">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;
+                    font-weight:600;letter-spacing:0.5px;">AI Confidence</div>
+        <div style="font-size:16px;font-weight:700;color:#6366f1;">${conf}</div>
+      </div>
+
+      <div style="background:#f0f9ff;border:1px solid #bae6fd;
+                  border-radius:6px;padding:6px 14px;text-align:center;flex:1;">
+        <div style="font-size:10px;color:#64748b;text-transform:uppercase;
+                    font-weight:600;letter-spacing:0.5px;">MITRE ATT&amp;CK</div>
+        <div style="font-size:12px;font-weight:600;color:#0369a1;">${mitre}</div>
+      </div>
+    </div>
+
+    <div style="margin:8px 0 16px;">
+      <div style="display:flex;justify-content:space-between;
+                  font-size:12px;margin-bottom:4px;">
+        <span style="color:#64748b;font-weight:600;">AI Confidence</span>
+        <span style="color:${barColor};font-weight:700;">${conf}</span>
+      </div>
+      <div style="background:#e2e8f0;border-radius:999px;height:8px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:${barColor};
+                    border-radius:999px;transition:width 0.6s ease;"></div>
+      </div>
+    </div>`;
+}
+
+// ── Override analyzeAlert to inject badges ───────────────────
+// This replaces whatever function your dashboard already uses
+// to call the AI analysis endpoint.
+window.analyzeAlert = async function(alertData, containerEl) {
+    if (containerEl) {
+        containerEl.innerHTML = `
+            <div style="text-align:center;padding:20px;color:#6366f1;">
+                <div style="font-size:28px;">🤖</div>
+                <div style="font-size:13px;color:#94a3b8;margin-top:8px;">
+                    Claude AI is analyzing this threat...</div>
+            </div>`;
+    }
+
+    try {
+        const res    = await fetch("/api/analyze-threat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(alertData)
+        });
+        const report = await res.json();
+
+        if (containerEl) {
+            const listHTML = (items) =>
+                (items || []).map(i => `<li>${i}</li>`).join("");
+
+            containerEl.innerHTML = `
+                ${renderConfidenceBadge(report)}
+
+                <div class="ai-section">
+                  <div class="ai-label">Attack Summary</div>
+                  <div class="ai-value">${report.attack_summary || "—"}</div>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">What They Were Trying To Do</div>
+                  <div class="ai-value">${report.what_they_were_trying || "—"}</div>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">Why This IP</div>
+                  <div class="ai-value">${report.why_this_ip || "—"}</div>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">Severity Reason</div>
+                  <div class="ai-value">${report.severity_reason || "—"}</div>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">⚡ Immediate Actions</div>
+                  <ul style="margin:6px 0 0;padding-left:18px;font-size:13px;
+                             color:#334155;">${listHTML(report.immediate_actions)}</ul>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">🛡 Remediation Steps</div>
+                  <ul style="margin:6px 0 0;padding-left:18px;font-size:13px;
+                             color:#334155;">${listHTML(report.remediation_steps)}</ul>
+                </div>
+                <div class="ai-section">
+                  <div class="ai-label">🔒 Long-Term Prevention</div>
+                  <ul style="margin:6px 0 0;padding-left:18px;font-size:13px;
+                             color:#334155;">${listHTML(report.prevention)}</ul>
+                </div>`;
+        }
+        return report;
+
+    } catch(err) {
+        console.error("[AI Analyst]", err);
+        if (containerEl)
+            containerEl.innerHTML =
+                `<div style="color:#ef4444;padding:12px;">
+                    ❌ AI analysis failed. Check API connection.</div>`;
+    }
+};
+
+// ── Styles for ai-section blocks ─────────────────────────────
+const _s = document.createElement("style");
+_s.textContent = `
+  .ai-section {
+    background:#f8fafc; border-radius:8px; padding:10px 14px;
+    margin-bottom:10px; border-left:3px solid #6366f1;
+  }
+  .ai-label {
+    font-size:11px; text-transform:uppercase; letter-spacing:0.5px;
+    font-weight:700; color:#6366f1; margin-bottom:4px;
+  }
+  .ai-value { font-size:13px; color:#1e293b; line-height:1.5; }
+`;
+document.head.appendChild(_s);
+</script>
+<script>
+function openAutoAnalysis() {
+    const a = window._latestAutoAnalysis;
+    if (!a) return;
+    document.getElementById('auto-toast').classList.remove('show');
+    openThreatModal({
+        ip:          a.alert?.ip,
+        threat_type: a.alert?.threat_type,
+        severity:    a.alert?.severity,
+        timestamp:   a.alert?.timestamp,
+        protocol:    a.alert?.protocol || 'TCP',
+    });
+}
+
+// ── Email Settings Modal ──────────────────────────────────────
+
+function openEmailSettings() {
+    // Load saved values from localStorage
+    document.getElementById('input-receiver').value  = localStorage.getItem('ids_email_receiver') || '';
+    document.getElementById('input-sender').value    = localStorage.getItem('ids_email_sender')   || '';
+    document.getElementById('input-password').value  = localStorage.getItem('ids_email_password') || '';
+
+    document.getElementById('email-overlay').classList.add('active');
+    document.getElementById('email-modal').classList.add('active');
+}
+
+function closeEmailSettings() {
+    document.getElementById('email-overlay').classList.remove('active');
+    document.getElementById('email-modal').classList.remove('active');
+}
+
+function togglePasswordVisibility() {
+    const input = document.getElementById('input-password');
+    const icon  = document.getElementById('eye-icon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-solid fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fa-solid fa-eye';
+    }
+}
+
+async function saveEmailSettings() {
+    const receiver = document.getElementById('input-receiver').value.trim();
+    const sender   = document.getElementById('input-sender').value.trim();
+    const password = document.getElementById('input-password').value.trim();
+
+    if (!receiver || !sender || !password) {
+        showEmailStatus('error', 'Please fill in all three fields before saving.');
+        return;
+    }
+    if (!receiver.includes('@') || !sender.includes('@')) {
+        showEmailStatus('error', 'Please enter valid email addresses.');
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/save-email-settings', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ receiver, sender, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            // Also cache in localStorage so we can pre-fill next time
+            localStorage.setItem('ids_email_receiver', receiver);
+            localStorage.setItem('ids_email_sender',   sender);
+            localStorage.setItem('ids_email_password', password);
+            showEmailStatus('success', `✅ Saved! CRITICAL alerts will be sent to ${receiver}`);
+        } else {
+            showEmailStatus('error', '❌ Save failed: ' + (data.error || 'Unknown error'));
+        }
+    } catch(e) {
+        showEmailStatus('error', '❌ Could not reach server. Is the dashboard running?');
+    }
+}
+
+async function testEmailSettings() {
+    const receiver = document.getElementById('input-receiver').value.trim();
+    const sender   = document.getElementById('input-sender').value.trim();
+    const password = document.getElementById('input-password').value.trim();
+
+    if (!receiver || !sender || !password) {
+        showEmailStatus('error', 'Fill in all fields first, then test.');
+        return;
+    }
+
+    showEmailStatus('info', '📤 Sending test email...');
+
+    try {
+        const res = await fetch('/api/test-email', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ receiver, sender, password })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            showEmailStatus('success', `✅ Test email sent to ${receiver}! Check your inbox.`);
+        } else {
+            showEmailStatus('error', '❌ Failed: ' + (data.error || 'Check your App Password'));
+        }
+    } catch(e) {
+        showEmailStatus('error', '❌ Server error. Make sure dashboard is running.');
+    }
+}
+
+function showEmailStatus(type, message) {
+    const banner = document.getElementById('email-status-banner');
+    const text   = document.getElementById('email-status-text');
+    banner.className = 'email-status-banner ' + (type === 'info' ? '' : type);
+    text.textContent = message;
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        closeEmailSettings();
+        closeModal();
+    }
+});
+</script>
+<script>
+// ── AI Chat ───────────────────────────────────────────────────
+
+function getTime() {
+    return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+
+function appendMsg(text, role) {
+    const box = document.getElementById('chat-messages');
+
+    const msg  = document.createElement('div');
+    msg.className = `chat-msg ${role === 'user' ? 'user-msg' : 'ai-msg'}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = `msg-avatar ${role === 'user' ? 'user-avatar-icon' : 'ai-avatar'}`;
+    avatar.innerHTML = role === 'user'
+        ? '<i class="fa-solid fa-user"></i>'
+        : '<i class="fa-solid fa-robot"></i>';
+
+    const bubble = document.createElement('div');
+    bubble.className = `msg-bubble ${role === 'user' ? 'user-bubble' : 'ai-bubble'}`;
+
+    // Convert **bold** and bullet points for AI messages
+    let formatted = text;
+    if (role === 'ai') {
+        formatted = text
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+            .replace(/^• /gm, '• ')
+            .replace(/^- /gm, '• ');
+    }
+
+    bubble.innerHTML = `
+        <div class="msg-text">${formatted}</div>
+        <div class="msg-time">${getTime()}</div>`;
+
+    msg.appendChild(avatar);
+    msg.appendChild(bubble);
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+    return msg;
+}
+
+function showTyping() {
+    const box = document.getElementById('chat-messages');
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg ai-msg';
+    msg.id = 'typing-indicator';
+    msg.innerHTML = `
+        <div class="msg-avatar ai-avatar">
+            <i class="fa-solid fa-robot"></i>
+        </div>
+        <div class="typing-bubble">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>`;
+    box.appendChild(msg);
+    box.scrollTop = box.scrollHeight;
+}
+
+function hideTyping() {
+    const t = document.getElementById('typing-indicator');
+    if (t) t.remove();
+}
+
+async function sendChat() {
+    const input = document.getElementById('chat-input');
+    const btn   = document.getElementById('chat-send-btn');
+    const text  = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    btn.disabled = true;
+
+    appendMsg(text, 'user');
+    showTyping();
+
+    try {
+        const res  = await fetch('/api/chat', {
+            method:  'POST',
+            headers: {'Content-Type': 'application/json'},
+            body:    JSON.stringify({message: text})
+        });
+        const data = await res.json();
+        hideTyping();
+        appendMsg(data.reply || 'No response', 'ai');
+    } catch(e) {
+        hideTyping();
+        appendMsg('Connection error — is the server running?', 'ai');
+    }
+
+    btn.disabled = false;
+    input.focus();
+}
+
+function sendSuggestion(el) {
+    document.getElementById('chat-input').value = el.textContent;
+    sendChat();
+}
+
+function clearChat() {
+    const box = document.getElementById('chat-messages');
+    // Keep only the welcome message
+    while (box.children.length > 1) {
+        box.removeChild(box.lastChild);
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-IDS // Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body style="background:var(--bg); min-height:100vh;">
+<div class="scanline"></div>
+
+<div class="admin-wrap">
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+        <div class="admin-topbar-left">
+            <div class="shield"><i class="fa-solid fa-circle-nodes"></i></div>
+            <div>
+                <h1>Sentinel<span>AI</span> Admin</h1>
+                <p>System Administration Panel</p>
+            </div>
+        </div>
+        <div class="admin-topbar-right">
+            <div class="admin-user">
+                <i class="fa-solid fa-circle-user"></i>
+                {{ username }}
+            </div>
+            <a href="/" class="btn-dash">
+                <i class="fa-solid fa-chart-pie"></i> Dashboard
+            </a>
+            <a href="/logout" class="btn-logout">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchTab('health')">
+            <i class="fa-solid fa-heart-pulse"></i> System Health
+        </button>
+        <button class="admin-tab" onclick="switchTab('alerts')">
+            <i class="fa-solid fa-triangle-exclamation"></i> Manage Alerts
+        </button>
+        <button class="admin-tab" onclick="switchTab('blocked')">
+            <i class="fa-solid fa-ban"></i> Blocked IPs
+        </button>
+        <button class="admin-tab" onclick="switchTab('reports')">
+            <i class="fa-solid fa-file-pdf"></i> Reports Archive
+        </button>
+        <button class="admin-tab" onclick="switchTab('settings')">
+            <i class="fa-solid fa-gear"></i> Settings
+        </button>
+        <button class="admin-tab" onclick="switchTab('password')">
+            <i class="fa-solid fa-key"></i> Change Password
+        </button>
+    </div>
+
+    <!-- ── TAB 1: SYSTEM HEALTH ── -->
+    <div class="tab-panel active" id="tab-health">
+
+        <div class="stats-row" id="health-stats">
+            <div class="stat-box">
+                <div class="stat-box-val" id="h-packets">—</div>
+                <div class="stat-box-label">Total Packets</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-val" id="h-alerts">—</div>
+                <div class="stat-box-label">Total Alerts</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-val" id="h-today">—</div>
+                <div class="stat-box-label">Threats Today</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-box-val" id="h-sev" style="color:#ef4444">—</div>
+                <div class="stat-box-label">Highest Severity</div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-circle-nodes"></i> Component Status
+            </div>
+            <div class="health-grid">
+                <div class="health-item">
+                    <div class="health-dot" id="dot-logs"></div>
+                    <div>
+                        <div class="health-label">Network Log File</div>
+                        <div class="health-val" id="val-logs">Checking...</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-dot" id="dot-alerts"></div>
+                    <div>
+                        <div class="health-label">Alert Log File</div>
+                        <div class="health-val" id="val-alerts">Checking...</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-dot" id="dot-api"></div>
+                    <div>
+                        <div class="health-label">Gemini AI API</div>
+                        <div class="health-val" id="val-api">Checking...</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-dot" id="dot-scheduler"></div>
+                    <div>
+                        <div class="health-label">Daily Reset Scheduler</div>
+                        <div class="health-val" id="val-scheduler">Checking...</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-dot" id="dot-email"></div>
+                    <div>
+                        <div class="health-label">Email Alerts</div>
+                        <div class="health-val" id="val-email">Checking...</div>
+                    </div>
+                </div>
+                <div class="health-item">
+                    <div class="health-dot ok"></div>
+                    <div>
+                        <div class="health-label">Flask Server</div>
+                        <div class="health-val">Running</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-clock"></i> Next Daily Reset
+            </div>
+            <p style="color:#64748b; font-size:0.88rem;">
+                The system auto-resets at <b style="color:#6366f1">midnight every day</b>.
+                All alerts and packets are archived to
+                <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;color:#94a3b8">reports/</code>
+                before reset.
+            </p>
+            <div style="margin-top:14px;">
+                <button class="btn-primary" onclick="triggerManualReset()">
+                    <i class="fa-solid fa-rotate"></i> Trigger Manual Reset Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TAB 2: MANAGE ALERTS ── -->
+    <div class="tab-panel" id="tab-alerts">
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                All Alerts
+                <span style="margin-left:auto;">
+                    <button class="btn-delete" onclick="clearAllAlerts()" style="font-size:0.78rem;">
+                        <i class="fa-solid fa-trash"></i> Clear All
+                    </button>
+                </span>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="admin-table" id="alerts-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Timestamp</th>
+                            <th>Source IP</th>
+                            <th>Threat Type</th>
+                            <th>Severity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="alerts-tbody">
+                        <tr><td colspan="6" style="text-align:center;color:#334155;padding:24px;">
+                            Loading alerts...
+                        </td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TAB 3: BLOCKED IPs ── -->
+    <div class="tab-panel" id="tab-blocked">
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-ban"></i> Block an IP Address
+            </div>
+            <div class="block-input-row">
+                <input type="text" class="admin-input" id="block-ip-input"
+                       placeholder="192.168.1.100"
+                       style="font-family:monospace;">
+                <input type="text" class="admin-input" id="block-reason-input"
+                       placeholder="Reason (optional)"
+                       style="font-family:inherit; max-width:200px;">
+                <button class="btn-primary" onclick="blockIP()">
+                    <i class="fa-solid fa-ban"></i> Block
+                </button>
+            </div>
+        </div>
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-list"></i> Currently Blocked IPs
+            </div>
+            <div class="blocked-list" id="blocked-list">
+                <div style="color:#334155;font-size:0.85rem;padding:16px;text-align:center;">
+                    Loading...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TAB 4: REPORTS ARCHIVE ── -->
+    <div class="tab-panel" id="tab-reports">
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-folder-open"></i> Daily Report Archive
+            </div>
+            <div id="reports-list">
+                {% if archive %}
+                    {% for r in archive %}
+                    <div class="report-row">
+                        <div>
+                            <div class="report-date">
+                                <i class="fa-solid fa-calendar-day" style="color:#6366f1;margin-right:8px;"></i>
+                                {{ r.date }}
+                            </div>
+                            <div class="report-meta">Generated: {{ r.generated }}</div>
+                            <div class="report-badges">
+                                <span class="report-badge">📦 {{ r.total_packets }} packets</span>
+                                <span class="report-badge">⚠ {{ r.total_alerts }} alerts</span>
+                                <span class="report-badge">🔥 {{ r.threats_today }} threats</span>
+                                <span class="report-badge sev-{{ r.highest_severity }}"
+                                      style="background:none;">
+                                    {{ r.highest_severity }}
+                                </span>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;">
+                            {% if r.pdf_file %}
+                            <a href="/admin/reports/download/{{ r.pdf_file }}"
+                               class="btn-download">
+                                <i class="fa-solid fa-file-pdf"></i> PDF
+                            </a>
+                            {% endif %}
+                            <a href="/admin/reports/download/{{ r.json_file }}"
+                               class="btn-download" style="color:#38bdf8;border-color:rgba(56,189,248,0.25);">
+                                <i class="fa-solid fa-code"></i> JSON
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="text-align:center;padding:32px;color:#334155;">
+                        <i class="fa-solid fa-folder-open" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+                        No reports yet. Reports are auto-generated at midnight daily.<br>
+                        <button class="btn-primary" style="margin:16px auto 0;width:fit-content;"
+                                onclick="triggerManualReset()">
+                            <i class="fa-solid fa-rotate"></i> Generate Now
+                        </button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- ── TAB 5: SETTINGS ── -->
+    <div class="tab-panel" id="tab-settings">
+
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-envelope"></i> Email Alert Settings
+            </div>
+            <div class="settings-grid">
+                <div class="settings-2col">
+                    <div class="settings-field">
+                        <label>Sender Gmail Address</label>
+                        <input type="email" id="s-sender"
+                               placeholder="your_sender@gmail.com"
+                               value="{{ email_config.sender }}">
+                    </div>
+                    <div class="settings-field">
+                        <label>Alert Recipient Email</label>
+                        <input type="email" id="s-receiver"
+                               placeholder="you@gmail.com"
+                               value="{{ email_config.receiver }}">
+                    </div>
+                </div>
+                <div class="settings-field">
+                    <label>Gmail App Password</label>
+                    <input type="password" id="s-password"
+                           placeholder="xxxx xxxx xxxx xxxx">
+                    <div class="settings-hint">
+                        Not your Gmail password.
+                        <a href="https://myaccount.google.com/apppasswords"
+                           target="_blank" style="color:#6366f1;">
+                            Generate one here →
+                        </a>
+                    </div>
+                </div>
+                <div style="display:flex;gap:10px;">
+                    <button class="btn-primary" onclick="saveEmailFromAdmin()">
+                        <i class="fa-solid fa-floppy-disk"></i> Save
+                    </button>
+                    <button class="btn-primary" style="background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);color:#818cf8;"
+                            onclick="testEmailFromAdmin()">
+                        <i class="fa-solid fa-paper-plane"></i> Send Test
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-card">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-robot"></i> Gemini AI API Key
+            </div>
+            <div class="settings-grid">
+                <div class="settings-field">
+                    <label>API Key</label>
+                    <input type="password" id="s-apikey"
+                           placeholder="Your Gemini API key">
+                    <div class="settings-hint">
+                        Get a free key at
+                        <a href="https://aistudio.google.com/apikey"
+                           target="_blank" style="color:#6366f1;">
+                            aistudio.google.com →
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn-primary" onclick="saveApiKey()">
+                        <i class="fa-solid fa-floppy-disk"></i> Save API Key
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── TAB 6: CHANGE PASSWORD ── -->
+    <div class="tab-panel" id="tab-password">
+        <div class="admin-card" style="max-width:440px;">
+            <div class="admin-card-title">
+                <i class="fa-solid fa-key"></i> Change Admin Password
+            </div>
+            <div class="settings-grid">
+                <div class="settings-field">
+                    <label>Current Password</label>
+                    <input type="password" id="pw-current" placeholder="Current password">
+                </div>
+                <div class="settings-field">
+                    <label>New Password</label>
+                    <input type="password" id="pw-new" placeholder="New password (min 6 chars)">
+                </div>
+                <div class="settings-field">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="pw-confirm" placeholder="Confirm new password">
+                </div>
+                <button class="btn-primary" onclick="changePassword()">
+                    <i class="fa-solid fa-lock"></i> Update Password
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end admin-wrap -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Tab switching ─────────────────────────────────────────────
+function switchTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.currentTarget.classList.add('active');
+
+    if (name === 'alerts')  loadAlerts();
+    if (name === 'blocked') loadBlocked();
+    if (name === 'health')  loadHealth();
+}
+
+// ── Toast ─────────────────────────────────────────────────────
+function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = (type === 'success' ? '✅ ' : '❌ ') + msg;
+    t.className = 'toast show ' + type;
+    setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// ── Health ────────────────────────────────────────────────────
+async function loadHealth() {
+    try {
+        const r = await fetch('/api/admin/health');
+        const d = await r.json();
+
+        document.getElementById('h-packets').textContent = d.total_packets || 0;
+        document.getElementById('h-alerts').textContent  = d.attack_count  || 0;
+        document.getElementById('h-today').textContent   = d.threats_today || 0;
+        document.getElementById('h-sev').textContent     = d.highest_severity || '—';
+
+        function setDot(id, valId, ok, val) {
+            document.getElementById(id).className  = 'health-dot ' + (ok ? 'ok' : 'err');
+            document.getElementById(valId).textContent = val;
+        }
+
+        setDot('dot-logs',      'val-logs',      d.logs_ok,      d.logs_ok      ? 'File found' : 'Not found');
+        setDot('dot-alerts',    'val-alerts',    d.alerts_ok,    d.alerts_ok    ? 'File found' : 'Not found');
+        setDot('dot-api',       'val-api',       d.api_key_set,  d.api_key_set  ? 'Key configured' : 'Not configured');
+        setDot('dot-scheduler', 'val-scheduler', d.scheduler_ok, d.scheduler_ok ? 'Running' : 'Not running');
+        setDot('dot-email',     'val-email',     d.email_ok,     d.email_ok     ? 'Configured' : 'Not configured');
+    } catch(e) {
+        console.error('Health load error:', e);
+    }
+}
+loadHealth();
+
+// ── Alerts ────────────────────────────────────────────────────
+async function loadAlerts() {
+    try {
+        const r = await fetch('/api/admin/alerts');
+        const d = await r.json();
+        const tbody = document.getElementById('alerts-tbody');
+
+        if (!d.alerts || !d.alerts.length) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#334155;padding:24px;">No alerts</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = d.alerts.map((a, i) => `
+            <tr>
+                <td style="color:#475569">${i+1}</td>
+                <td class="mono" style="font-size:0.78rem;">${a.Timestamp || '—'}</td>
+                <td class="mono">${a.Source_IP || '—'}</td>
+                <td style="color:#e2e8f0;">${a.Threat_Type || '—'}</td>
+                <td><span class="sev-badge sev-${a.Severity}">${a.Severity || '—'}</span></td>
+                <td>
+                    <button class="btn-delete" onclick="deleteAlert(${i})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>`).join('');
+    } catch(e) {
+        console.error('Alerts load error:', e);
+    }
+}
+
+async function deleteAlert(index) {
+    if (!confirm('Delete this alert?')) return;
+    const r = await fetch('/api/admin/delete-alert', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({index})
+    });
+    const d = await r.json();
+    if (d.success) { showToast('Alert deleted'); loadAlerts(); }
+    else showToast(d.error || 'Failed', 'error');
+}
+
+async function clearAllAlerts() {
+    if (!confirm('Clear ALL alerts? This cannot be undone.')) return;
+    const r = await fetch('/api/admin/clear-alerts', {method:'POST'});
+    const d = await r.json();
+    if (d.success) { showToast('All alerts cleared'); loadAlerts(); }
+    else showToast(d.error || 'Failed', 'error');
+}
+
+// ── Blocked IPs ───────────────────────────────────────────────
+async function loadBlocked() {
+    const r = await fetch('/api/admin/blocked-ips');
+    const d = await r.json();
+    const el = document.getElementById('blocked-list');
+
+    if (!d.blocked || !d.blocked.length) {
+        el.innerHTML = '<div style="color:#334155;font-size:0.85rem;padding:16px;text-align:center;">No IPs currently blocked.</div>';
+        return;
+    }
+
+    el.innerHTML = d.blocked.map(b => `
+        <div class="blocked-row">
+            <div>
+                <div class="blocked-ip">${b.ip}</div>
+                <div class="blocked-meta">
+                    Blocked: ${b.blocked_at} · Reason: ${b.reason || 'Manual block'}
+                </div>
+            </div>
+            <button class="btn-unblock" onclick="unblockIP('${b.ip}')">
+                <i class="fa-solid fa-lock-open"></i> Unblock
+            </button>
+        </div>`).join('');
+}
+
+async function blockIP() {
+    const ip     = document.getElementById('block-ip-input').value.trim();
+    const reason = document.getElementById('block-reason-input').value.trim();
+    if (!ip) { showToast('Enter an IP address', 'error'); return; }
+
+    const r = await fetch('/api/admin/block-ip', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ip, reason})
+    });
+    const d = await r.json();
+    if (d.success) {
+        showToast(`${ip} blocked`);
+        document.getElementById('block-ip-input').value = '';
+        document.getElementById('block-reason-input').value = '';
+        loadBlocked();
+    } else showToast(d.error || 'Failed', 'error');
+}
+
+async function unblockIP(ip) {
+    const r = await fetch('/api/admin/unblock-ip', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({ip})
+    });
+    const d = await r.json();
+    if (d.success) { showToast(`${ip} unblocked`); loadBlocked(); }
+    else showToast(d.error || 'Failed', 'error');
+}
+
+// ── Settings ──────────────────────────────────────────────────
+async function saveEmailFromAdmin() {
+    const sender   = document.getElementById('s-sender').value.trim();
+    const receiver = document.getElementById('s-receiver').value.trim();
+    const password = document.getElementById('s-password').value.trim();
+
+    if (!sender || !receiver || !password) {
+        showToast('Fill all email fields', 'error'); return;
+    }
+    const r = await fetch('/api/save-email-settings', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({sender, receiver, password})
+    });
+    const d = await r.json();
+    if (d.success) showToast('Email settings saved');
+    else showToast(d.error || 'Failed', 'error');
+}
+
+async function testEmailFromAdmin() {
+    const sender   = document.getElementById('s-sender').value.trim();
+    const receiver = document.getElementById('s-receiver').value.trim();
+    const password = document.getElementById('s-password').value.trim();
+
+    if (!sender || !receiver || !password) {
+        showToast('Fill all email fields first', 'error'); return;
+    }
+    showToast('Sending test email...');
+    const r = await fetch('/api/test-email', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({sender, receiver, password})
+    });
+    const d = await r.json();
+    if (d.success) showToast(`Test email sent to ${receiver}`);
+    else showToast(d.error || 'Failed', 'error');
+}
+
+async function saveApiKey() {
+    const key = document.getElementById('s-apikey').value.trim();
+    if (!key) { showToast('Enter an API key', 'error'); return; }
+
+    const r = await fetch('/api/admin/save-api-key', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({api_key: key})
+    });
+    const d = await r.json();
+    if (d.success) showToast('API key saved');
+    else showToast(d.error || 'Failed', 'error');
+}
+
+// ── Change Password ───────────────────────────────────────────
+async function changePassword() {
+    const current = document.getElementById('pw-current').value;
+    const newpw   = document.getElementById('pw-new').value;
+    const confirm = document.getElementById('pw-confirm').value;
+
+    if (!current || !newpw || !confirm) {
+        showToast('Fill all password fields', 'error'); return;
+    }
+    if (newpw !== confirm) {
+        showToast('New passwords do not match', 'error'); return;
+    }
+
+    const r = await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({old_password: current, new_password: newpw})
+    });
+    const d = await r.json();
+    if (d.success) {
+        showToast('Password changed');
+        document.getElementById('pw-current').value = '';
+        document.getElementById('pw-new').value     = '';
+        document.getElementById('pw-confirm').value = '';
+    } else showToast(d.error || 'Failed', 'error');
+}
+
+// ── Manual Reset ──────────────────────────────────────────────
+async function triggerManualReset() {
+    if (!confirm('This will save today\'s report and reset all logs. Continue?')) return;
+    showToast('Running reset...');
+    const r = await fetch('/api/admin/manual-reset', {method:'POST'});
+    const d = await r.json();
+    if (d.success) {
+        showToast('Reset complete — report saved');
+        setTimeout(() => location.reload(), 1500);
+    } else showToast(d.error || 'Failed', 'error');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+[
+  {
+    "date": "2026-11-03",
+    "generated": "2026-11-03 22:41:54",
+    "total_packets": 63108,
+    "total_alerts": 307,
+    "threats_today": 0,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-11-03.pdf",
+    "json_file": "report_2026-11-03.json"
+  },
+  {
+    "date": "2026-07-24",
+    "generated": "2026-07-24 19:20:52",
+    "total_packets": 14,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-07-24.pdf",
+    "json_file": "report_2026-07-24.json"
+  },
+  {
+    "date": "2026-07-24",
+    "generated": "2026-07-24 19:20:38",
+    "total_packets": 13890,
+    "total_alerts": 107,
+    "threats_today": 0,
+    "highest_severity": "HIGH",
+    "pdf_file": "report_2026-07-24.pdf",
+    "json_file": "report_2026-07-24.json"
+  },
+  {
+    "date": "2026-07-09",
+    "generated": "2026-07-09 22:39:32",
+    "total_packets": 3,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-07-09.pdf",
+    "json_file": "report_2026-07-09.json"
+  },
+  {
+    "date": "2026-07-09",
+    "generated": "2026-07-09 22:39:12",
+    "total_packets": 12122,
+    "total_alerts": 85,
+    "threats_today": 0,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-07-09.pdf",
+    "json_file": "report_2026-07-09.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 12:51:54",
+    "total_packets": 9366,
+    "total_alerts": 59,
+    "threats_today": 59,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 12:04:59",
+    "total_packets": 250,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 12:04:39",
+    "total_packets": 7152,
+    "total_alerts": 106,
+    "threats_today": 106,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 00:30:32",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 00:30:25",
+    "total_packets": 3500,
+    "total_alerts": 18,
+    "threats_today": 18,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 00:16:26",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-29",
+    "generated": "2026-06-29 00:16:13",
+    "total_packets": 8181,
+    "total_alerts": 79,
+    "threats_today": 0,
+    "highest_severity": "LOW",
+    "pdf_file": "report_2026-06-29.pdf",
+    "json_file": "report_2026-06-29.json"
+  },
+  {
+    "date": "2026-06-27",
+    "generated": "2026-06-27 16:57:52",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-27.pdf",
+    "json_file": "report_2026-06-27.json"
+  },
+  {
+    "date": "2026-06-27",
+    "generated": "2026-06-27 16:57:49",
+    "total_packets": 3557,
+    "total_alerts": 36,
+    "threats_today": 0,
+    "highest_severity": "HIGH",
+    "pdf_file": "report_2026-06-27.pdf",
+    "json_file": "report_2026-06-27.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 14:08:15",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 14:05:00",
+    "total_packets": 15012,
+    "total_alerts": 124,
+    "threats_today": 124,
+    "highest_severity": "HIGH",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 14:05:00",
+    "total_packets": 15012,
+    "total_alerts": 124,
+    "threats_today": 124,
+    "highest_severity": "HIGH",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 13:53:20",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 13:53:18",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:48:25",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:48:17",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:38:05",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:38:02",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:37:53",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:35:39",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:35:37",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:33:32",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:26:25",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:24:18",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:22:15",
+    "total_packets": 0,
+    "total_alerts": 0,
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  },
+  {
+    "date": "2026-06-24",
+    "generated": "2026-06-24 11:19:25",
+    "total_packets": 59846,
+    "total_alerts": 17,
+    "threats_today": 0,
+    "highest_severity": "HIGH",
+    "pdf_file": "report_2026-06-24.pdf",
+    "json_file": "report_2026-06-24.json"
+  }
+]

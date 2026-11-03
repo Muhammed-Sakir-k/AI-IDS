@@ -1,0 +1,377 @@
+{
+  "date": "2026-07-24",
+  "generated": "2026-07-24 19:20:52",
+  "stats": {
+    "packets": [
+      {
+        "Timestamp": "2026-07-24 19:20:49",
+        "Protocol": "TCP",
+        "Source_IP": "18.67.153.210",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "53233"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:49",
+        "Protocol": "TCP",
+        "Source_IP": "57.156.79.4",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "53652"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:49",
+        "Protocol": "TCP",
+        "Source_IP": "57.156.79.4",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "53304"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:49",
+        "Protocol": "OTHER",
+        "Source_IP": "192.168.1.8",
+        "Source_Port": "-",
+        "Destination_IP": "224.0.0.251",
+        "Destination_Port": "-"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "UDP",
+        "Source_IP": "192.168.1.8",
+        "Source_Port": "5353",
+        "Destination_IP": "224.0.0.251",
+        "Destination_Port": "5353"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:50",
+        "Protocol": "TCP",
+        "Source_IP": "204.79.197.222",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "52309"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:51",
+        "Protocol": "TCP",
+        "Source_IP": "57.156.79.4",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "53652"
+      },
+      {
+        "Timestamp": "2026-07-24 19:20:51",
+        "Protocol": "TCP",
+        "Source_IP": "57.156.79.4",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.15",
+        "Destination_Port": "53304"
+      }
+    ],
+    "alerts": [],
+    "total_packets": 14,
+    "tcp_count": 12,
+    "udp_count": 1,
+    "attack_count": 0,
+    "top_threat_ip": "\u2014",
+    "top_threat_type": "\u2014",
+    "threats_today": 0,
+    "highest_severity": "\u2014",
+    "hourly_labels": [],
+    "hourly_counts": [],
+    "geo_data": [],
+    "risk_scores": [],
+    "heatmap": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "topology": {
+      "nodes": [
+        {
+          "id": "192.168.1.15",
+          "type": "normal",
+          "connections": 12
+        },
+        {
+          "id": "204.79.197.222",
+          "type": "normal",
+          "connections": 7
+        },
+        {
+          "id": "57.156.79.4",
+          "type": "normal",
+          "connections": 4
+        },
+        {
+          "id": "192.168.1.8",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "224.0.0.251",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "18.67.153.210",
+          "type": "normal",
+          "connections": 1
+        }
+      ],
+      "edges": [
+        {
+          "source": "18.67.153.210",
+          "target": "192.168.1.15",
+          "count": 1
+        },
+        {
+          "source": "57.156.79.4",
+          "target": "192.168.1.15",
+          "count": 4
+        },
+        {
+          "source": "192.168.1.8",
+          "target": "224.0.0.251",
+          "count": 2
+        },
+        {
+          "source": "204.79.197.222",
+          "target": "192.168.1.15",
+          "count": 7
+        }
+      ]
+    },
+    "port_analysis": {
+      "top_ports": [],
+      "suspicious": []
+    }
+  }
+}

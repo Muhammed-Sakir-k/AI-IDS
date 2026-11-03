@@ -1,0 +1,1349 @@
+{
+  "date": "2026-06-29",
+  "generated": "2026-06-29 12:51:54",
+  "stats": {
+    "packets": [
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "52702",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.127",
+        "Source_Port": "52765",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "49665",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "142.251.43.138",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "57928"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "104.18.41.41",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "50691"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "42124",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "42605",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "55412",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "50455",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.247",
+        "Source_Port": "34751",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "104.18.41.41",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "50691"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "36504",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "36504",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "36504",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "56165",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "60720",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "50412",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "45128",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "46547",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.9.186",
+        "Source_Port": "38532",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "60230",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "36062",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "TCP",
+        "Source_IP": "92.223.76.254",
+        "Source_Port": "80",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "58048"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "104.18.41.41",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "50691"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "60385",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "56110",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "45771",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "49726",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "42701",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "33225",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "TCP",
+        "Source_IP": "92.223.76.254",
+        "Source_Port": "80",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "58048"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "TCP",
+        "Source_IP": "92.223.76.254",
+        "Source_Port": "80",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "58048"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "TCP",
+        "Source_IP": "34.233.45.51",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "63063"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "104.18.41.41",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "50691"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "59023",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "34091",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "47185",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "35700",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "40858",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "TCP",
+        "Source_IP": "92.223.76.254",
+        "Source_Port": "80",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "58048"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "39073",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "46929",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "36585",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "53790",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "51461",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "48521",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "48948",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.8.47",
+        "Source_Port": "33434",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "10.10.11.192",
+        "Source_Port": "50172",
+        "Destination_IP": "239.255.255.250",
+        "Destination_Port": "1900"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:27",
+        "Protocol": "UDP",
+        "Source_IP": "104.18.41.41",
+        "Source_Port": "443",
+        "Destination_IP": "192.168.1.133",
+        "Destination_Port": "50691"
+      }
+    ],
+    "alerts": [
+      {
+        "Timestamp": "2026-06-29 12:06:00",
+        "Source_IP": "192.178.211.84",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:02",
+        "Source_IP": "10.10.8.47",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:02",
+        "Source_IP": "10.10.8.127",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:04",
+        "Source_IP": "10.10.9.247",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:06",
+        "Source_IP": "10.10.8.127",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:06",
+        "Source_IP": "10.10.8.47",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:06",
+        "Source_IP": "10.10.9.247",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:07",
+        "Source_IP": "51.104.15.253",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:08",
+        "Source_IP": "51.104.15.253",
+        "Threat_Type": "Port Scan",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:12",
+        "Source_IP": "49.44.197.154",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:13",
+        "Source_IP": "10.10.10.215",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:15",
+        "Source_IP": "142.251.221.174",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:15",
+        "Source_IP": "142.251.221.174",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:15",
+        "Source_IP": "150.171.110.84",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:16",
+        "Source_IP": "51.132.193.105",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:16",
+        "Source_IP": "142.251.43.138",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:16",
+        "Source_IP": "142.251.43.138",
+        "Threat_Type": "Port Scan",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:16",
+        "Source_IP": "142.251.43.138",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:18",
+        "Source_IP": "142.251.221.163",
+        "Threat_Type": "Traffic Burst",
+        "Severity": "LOW"
+      },
+      {
+        "Timestamp": "2026-06-29 12:06:18",
+        "Source_IP": "142.251.221.163",
+        "Threat_Type": "UDP Flood",
+        "Severity": "LOW"
+      }
+    ],
+    "total_packets": 9366,
+    "tcp_count": 1011,
+    "udp_count": 7749,
+    "attack_count": 59,
+    "top_threat_ip": "142.251.221.174",
+    "top_threat_type": "Traffic Burst",
+    "threats_today": 59,
+    "highest_severity": "LOW",
+    "hourly_labels": [
+      "01:00",
+      "02:00",
+      "03:00",
+      "04:00",
+      "05:00",
+      "06:00",
+      "07:00",
+      "08:00",
+      "09:00",
+      "10:00",
+      "11:00",
+      "12:00"
+    ],
+    "hourly_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      59
+    ],
+    "geo_data": [
+      {
+        "ip": "34.120.250.63",
+        "country": "United States",
+        "city": "Kansas City",
+        "isp": "Google LLC",
+        "lat": 39.0997,
+        "lon": -94.5785,
+        "flag": "us"
+      },
+      {
+        "ip": "142.251.220.110",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      },
+      {
+        "ip": "49.44.197.178",
+        "country": "India",
+        "city": "Navi Mumbai",
+        "isp": "Reliance Jio Infocomm Limited",
+        "lat": 19.1258,
+        "lon": 73.0004,
+        "flag": "in"
+      },
+      {
+        "ip": "3.111.241.224",
+        "country": "India",
+        "city": "Mumbai",
+        "isp": "Amazon Technologies Inc.",
+        "lat": 19.076,
+        "lon": 72.8777,
+        "flag": "in"
+      },
+      {
+        "ip": "104.18.31.173",
+        "country": "Canada",
+        "city": "Toronto",
+        "isp": "Cloudflare, Inc.",
+        "lat": 43.6532,
+        "lon": -79.3832,
+        "flag": "ca"
+      },
+      {
+        "ip": "185.199.108.153",
+        "country": "United States",
+        "city": "San Francisco",
+        "isp": "Fastly, Inc.",
+        "lat": 37.7823,
+        "lon": -122.391,
+        "flag": "us"
+      },
+      {
+        "ip": "35.186.247.156",
+        "country": "United States",
+        "city": "Kansas City",
+        "isp": "Google LLC",
+        "lat": 39.0997,
+        "lon": -94.5785,
+        "flag": "us"
+      },
+      {
+        "ip": "99.86.182.19",
+        "country": "India",
+        "city": "Bengaluru",
+        "isp": "Amazon.com",
+        "lat": 12.9716,
+        "lon": 77.5946,
+        "flag": "in"
+      },
+      {
+        "ip": "142.251.221.174",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      },
+      {
+        "ip": "54.185.248.173",
+        "country": "United States",
+        "city": "Portland",
+        "isp": "Amazon.com, Inc.",
+        "lat": 45.5235,
+        "lon": -122.676,
+        "flag": "us"
+      },
+      {
+        "ip": "142.251.157.119",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      },
+      {
+        "ip": "52.182.143.215",
+        "country": "United States",
+        "city": "Des Moines",
+        "isp": "Microsoft Corporation",
+        "lat": 41.5908,
+        "lon": -93.6208,
+        "flag": "us"
+      },
+      {
+        "ip": "106.10.218.137",
+        "country": "Singapore",
+        "city": "Singapore",
+        "isp": "Yahoo! SG3",
+        "lat": 1.35208,
+        "lon": 103.82,
+        "flag": "sg"
+      },
+      {
+        "ip": "160.79.104.10",
+        "country": "United States",
+        "city": "San Francisco",
+        "isp": "Anthropic, PBC",
+        "lat": 37.7901,
+        "lon": -122.401,
+        "flag": "us"
+      },
+      {
+        "ip": "34.36.57.103",
+        "country": "United States",
+        "city": "Kansas City",
+        "isp": "Google LLC",
+        "lat": 39.0997,
+        "lon": -94.5785,
+        "flag": "us"
+      },
+      {
+        "ip": "34.149.66.154",
+        "country": "United States",
+        "city": "Kansas City",
+        "isp": "Google LLC",
+        "lat": 39.0997,
+        "lon": -94.5785,
+        "flag": "us"
+      },
+      {
+        "ip": "142.251.223.232",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      },
+      {
+        "ip": "208.95.112.1",
+        "country": "United States",
+        "city": "Ashburn",
+        "isp": "Total Uptime Technologies, LLC",
+        "lat": 39.0438,
+        "lon": -77.4874,
+        "flag": "us"
+      },
+      {
+        "ip": "192.178.211.84",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      },
+      {
+        "ip": "51.104.15.253",
+        "country": "United Kingdom",
+        "city": "City of London",
+        "isp": "Microsoft Corporation",
+        "lat": 51.5113,
+        "lon": -0.079212,
+        "flag": "gb"
+      },
+      {
+        "ip": "49.44.197.154",
+        "country": "India",
+        "city": "Navi Mumbai",
+        "isp": "Reliance Jio Infocomm Limited",
+        "lat": 19.1258,
+        "lon": 73.0004,
+        "flag": "in"
+      },
+      {
+        "ip": "150.171.110.84",
+        "country": "United States",
+        "city": "Dallas",
+        "isp": "Microsoft Corporation",
+        "lat": 32.7767,
+        "lon": -96.797,
+        "flag": "us"
+      },
+      {
+        "ip": "51.132.193.105",
+        "country": "United Kingdom",
+        "city": "City of London",
+        "isp": "Microsoft",
+        "lat": 51.5113,
+        "lon": -0.079212,
+        "flag": "gb"
+      },
+      {
+        "ip": "142.251.43.138",
+        "country": "Thailand",
+        "city": "Bangkok",
+        "isp": "Google LLC",
+        "lat": 13.7563,
+        "lon": 100.502,
+        "flag": "th"
+      },
+      {
+        "ip": "142.251.221.163",
+        "country": "United States",
+        "city": "Mountain View",
+        "isp": "Google LLC",
+        "lat": 37.4225,
+        "lon": -122.085,
+        "flag": "us"
+      }
+    ],
+    "risk_scores": [
+      {
+        "ip": "142.251.221.174",
+        "score": 55,
+        "alerts": 5,
+        "top_threat": "Traffic Burst",
+        "level": "MEDIUM"
+      },
+      {
+        "ip": "142.251.157.119",
+        "score": 39,
+        "alerts": 3,
+        "top_threat": "Traffic Burst",
+        "level": "MEDIUM"
+      },
+      {
+        "ip": "142.251.220.110",
+        "score": 39,
+        "alerts": 3,
+        "top_threat": "Traffic Burst",
+        "level": "MEDIUM"
+      },
+      {
+        "ip": "142.251.43.138",
+        "score": 39,
+        "alerts": 3,
+        "top_threat": "Traffic Burst",
+        "level": "MEDIUM"
+      },
+      {
+        "ip": "160.79.104.10",
+        "score": 39,
+        "alerts": 3,
+        "top_threat": "Traffic Burst",
+        "level": "MEDIUM"
+      },
+      {
+        "ip": "10.10.10.69",
+        "score": 26,
+        "alerts": 2,
+        "top_threat": "Traffic Burst",
+        "level": "LOW"
+      },
+      {
+        "ip": "10.10.11.192",
+        "score": 26,
+        "alerts": 2,
+        "top_threat": "Traffic Burst",
+        "level": "LOW"
+      },
+      {
+        "ip": "10.10.8.127",
+        "score": 26,
+        "alerts": 2,
+        "top_threat": "Traffic Burst",
+        "level": "LOW"
+      },
+      {
+        "ip": "10.10.8.47",
+        "score": 26,
+        "alerts": 2,
+        "top_threat": "Traffic Burst",
+        "level": "LOW"
+      },
+      {
+        "ip": "10.10.9.186",
+        "score": 26,
+        "alerts": 2,
+        "top_threat": "UDP Flood",
+        "level": "LOW"
+      }
+    ],
+    "heatmap": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        59,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "topology": {
+      "nodes": [
+        {
+          "id": "239.255.255.250",
+          "type": "normal",
+          "connections": 271
+        },
+        {
+          "id": "10.10.11.192",
+          "type": "attacker",
+          "connections": 51
+        },
+        {
+          "id": "10.10.8.47",
+          "type": "attacker",
+          "connections": 48
+        },
+        {
+          "id": "10.10.8.127",
+          "type": "attacker",
+          "connections": 30
+        },
+        {
+          "id": "10.10.9.247",
+          "type": "attacker",
+          "connections": 30
+        },
+        {
+          "id": "192.168.1.133",
+          "type": "normal",
+          "connections": 29
+        },
+        {
+          "id": "142.251.43.138",
+          "type": "attacker",
+          "connections": 14
+        },
+        {
+          "id": "10.10.9.186",
+          "type": "attacker",
+          "connections": 13
+        },
+        {
+          "id": "104.18.41.41",
+          "type": "normal",
+          "connections": 9
+        },
+        {
+          "id": "92.223.76.254",
+          "type": "normal",
+          "connections": 4
+        },
+        {
+          "id": "10.10.11.91",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.23",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.212",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.166",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.155",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.51",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.171",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.214",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.251",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.160",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.216",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.33",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.28",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.189",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.206",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.24",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.26",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.30",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.11.188",
+          "type": "normal",
+          "connections": 2
+        },
+        {
+          "id": "10.10.10.26",
+          "type": "normal",
+          "connections": 2
+        }
+      ],
+      "edges": [
+        {
+          "source": "10.10.9.186",
+          "target": "239.255.255.250",
+          "count": 13
+        },
+        {
+          "source": "10.10.11.91",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.8.47",
+          "target": "239.255.255.250",
+          "count": 48
+        },
+        {
+          "source": "10.10.10.23",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.192",
+          "target": "239.255.255.250",
+          "count": 51
+        },
+        {
+          "source": "10.10.11.212",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.166",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.155",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.10.51",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "142.251.43.138",
+          "target": "192.168.1.133",
+          "count": 14
+        },
+        {
+          "source": "104.18.41.41",
+          "target": "192.168.1.133",
+          "count": 9
+        },
+        {
+          "source": "10.10.11.171",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.214",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.251",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.160",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.216",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.10.33",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.28",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.10.189",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.206",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.24",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.26",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.10.30",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.11.188",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.10.26",
+          "target": "239.255.255.250",
+          "count": 2
+        },
+        {
+          "source": "10.10.8.127",
+          "target": "239.255.255.250",
+          "count": 30
+        },
+        {
+          "source": "10.10.9.247",
+          "target": "239.255.255.250",
+          "count": 30
+        },
+        {
+          "source": "92.223.76.254",
+          "target": "192.168.1.133",
+          "count": 4
+        }
+      ]
+    },
+    "port_analysis": {
+      "top_ports": [],
+      "suspicious": []
+    }
+  }
+}

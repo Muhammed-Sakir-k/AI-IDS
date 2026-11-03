@@ -1,0 +1,64 @@
+PRED:
+<div class="prediction-banner" id="prediction-banner" style="display:none;">
+
+    <div class="pred-left">
+
+        <div class="pred-icon"><i class="fa-solid fa-brain"></i></div>
+
+        <div>
+
+            <div class="pred-title">
+
+                AI Threat Prediction
+
+                <span class="pred-prob" id="pred-prob"></span>
+
+            </div>
+
+            <div class="pred-text" id="pred-text"></div>
+
+        </div>
+
+    </div>
+
+TOAST:
+S TOAST -->
+
+<div class="auto-analysis-toast" id="auto-toast" onclick="openAutoAnalysis()">
+
+    <div class="aat-icon"><i class="fa-solid fa-robot"></i></div>
+
+    <div>
+
+        <div class="aat-title">🚨 CRITICAL Alert Auto-Analyzed</div>
+
+        <div class="aat-sub" id="aat-sub">Click to view AI forensic report</div>
+
+    </div>
+
+    <div class="aat-badge">NEW</div>
+
+</div>
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="topbar-left">
+
+            <span class="page-title">Threat Intelligence Platform</span>
+
+            <span class="breadcrumb">// Real-Time Network Behavior Analytics</span>
+
+        </div>
+
+        <div class="topbar-right">
+
+            <div class="ws-indicator" id="ws-indicator">
+
+                <span class="mini-dot"></span>WS CONNECTED
+
+            </div>
+
+            <div class="clock" id="cloc
+
